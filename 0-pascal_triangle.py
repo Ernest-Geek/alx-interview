@@ -2,8 +2,7 @@
 def pascal_triangle(n):
     # Checks if the input list is <= 0
     if n <= 0:
-        return []
-    
+        return [}
     # Stores the rows of the Pascal triangle
     pascal_triangle = []
     for i in range(n):
@@ -17,7 +16,5 @@ def pascal_triangle(n):
                 pascal_row.append(prev_row[j-1] + prev_row[j])
             # We append (add) 1 to the end of the row
             pascal_row.append(1)
-        
         pascal_triangle.append(pascal_row)
-    
     return pascal_triangle

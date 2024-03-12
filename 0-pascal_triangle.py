@@ -2,7 +2,7 @@
 def pascal_triangle(n):
     # Checks if the input list is <= 0
     if n <= 0:
-        return [}
+        return []
     # Stores the rows of the Pascal triangle
     pascal_triangle = []
     for i in range(n):

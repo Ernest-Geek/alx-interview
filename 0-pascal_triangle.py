@@ -1,20 +1,24 @@
 #!/usr/bin/python3
+"""this module attempts to solve the pascal's triangle problem"""
+
+
 def pascal_triangle(n):
-    # Checks if the input list is <= 0
-    if n <= 0:
+    """this function prints out the sequence of pascal's triangle
+        given a sequence count n"""
+    if (n <= 0):
         return []
-    # Stores the rows of the Pascal triangle
-    pascal_triangle = []
+    start_matrix = [[0 for _ in range(n)] for _ in range(n)]
+    end_matrix = [[] for _ in range(n)]
+    start_matrix[0][0] = 1
+    end_matrix[0].append(1)
+
     for i in range(n):
-        pascal_row = [1]
-        # Checks if the current index is greater than 0
-        if i > 0:
-            # Accesses the previous row of the triangle list
-            prev_row = pascal_triangle[i-1]
-            # Iterate within the first and last element
-            for j in range(1, i):
-                pascal_row.append(prev_row[j-1] + prev_row[j])
-            # We append (add) 1 to the end of the row
-            pascal_row.append(1)
-        pascal_triangle.append(pascal_row)
-    return pascal_triangle
+        for j in range(i + 1):
+            up = start_matrix[i - 1][j] if i - 1 > - 1 else 0
+            up_left = start_matrix[i - 1][j - 1]\
+                if j - 1 > - 1 and i - 1 > - 1 else 0
+            if (i or j):
+                start_matrix[i][j] = up + up_left
+                end_matrix[i].append(up + up_left)
+
+    return end_matrix

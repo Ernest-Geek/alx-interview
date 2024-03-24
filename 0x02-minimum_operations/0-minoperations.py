@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+"""Minimum operation challenge in python"""
+
 
 def minOperations(n):
     """

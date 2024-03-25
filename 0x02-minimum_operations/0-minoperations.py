@@ -1,34 +1,45 @@
 #!/usr/bin/python3
-"""Minimum operation challenge in python"""
+'''Minimum Operations python3 challenge'''
 
 
 def minOperations(n):
-    """
-    Calculate the minimum number of operations needed to achieve n 'H' characters.
+    '''Calculates the fewest number of operations needed to result in exactly
+    n H characters in this file.
 
     Args:
-        n (int): The target number of 'H' characters.
+        n (int): The desired number of 'H' characters.
 
     Returns:
-        int: The minimum number of operations needed.
+        int: The fewest number of operations needed.
+            If n is impossible to achieve, returns 0.
+    '''
+    pasted_chars = 1  # Number of characters in the file
+    clipboard = 0  # Number of 'H's copied
+    counter = 0
 
-    Raises:
-        ValueError: If n is less than or equal to 1.
+    while pasted_chars < n:
+        if clipboard == 0:  # If clipboard is empty
+            clipboard = pasted_chars
+            counter += 1
 
-    """
-    if n <= 1:
-        raise ValueError("n must be greater than 1")
-    
-    # Initialize a list to store the minimum operations
-    dp = [0] * (n + 1)
-    
-    for i in range(2, n + 1):
-        # Initialize with the maximum number value
-        dp[i] = i
-        
-        # Try all possible divisors of i
-        for j in range(2, i):
-            if i % j == 0:
-                dp[i] = min(dp[i], dp[j] + i // j)
+        if pasted_chars == 1:  # If nothing has been pasted yet
+            pasted_chars += clipboard
+            counter += 1
+            continue
 
-    return dp[n]
+        remaining = n - pasted_chars  # Remaining characters to paste
+        if remaining < clipboard:  # If impossible to achieve n characters
+            return 0
+
+        if remaining % pasted_chars != 0:  # If remaining cannot be divided
+            pasted_chars += clipboard
+            counter += 1
+        else:
+            clipboard = pasted_chars
+            pasted_chars += clipboard
+            counter += 2
+
+    if pasted_chars == n:
+        return counter
+    else:
+        return 0

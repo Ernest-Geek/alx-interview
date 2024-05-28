@@ -1,43 +1,32 @@
 #!/usr/bin/python3
-
-def generate_primes(n):
-    primes = []
-    is_prime = [True] * (n + 1)
-    is_prime[0] = is_prime[1] = False
-
-    for i in range(2, n + 1):
-        if is_prime[i]:
-            primes.append(i)
-            for j in range(i * i, n + 1, i):
-                is_prime[j] = False
-
-    return primes
+"""Prime game winner determination"""
 
 
 def isWinner(x, nums):
-    maria_wins = 0
-    ben_wins = 0
-
-    for n in nums:
-        if n == 1:
-            ben_wins += 1
-            continue
-
-        primes = generate_primes(n)
-        if len(primes) % 2 == 0:
-            ben_wins += 1
-        else:
-            maria_wins += 1
-
-    if maria_wins > ben_wins:
-        return "Maria"
-    elif ben_wins > maria_wins:
-        return "Ben"
-    else:
+    """Prime game winner determination"""
+    if x < 1 or not nums:
         return None
 
+    m_wins = 0
+    b_wins = 0
 
-# Test cases
-x = 3
-nums = [4, 5, 1]
-print(isWinner(x, nums))  # Output: "None"
+    # generate a list of prime number based on the max numbers in num
+    n = max(nums)
+    primes = [True] * (n + 1)
+    primes[0] = primes[1] = False
+
+    for x in range(2, int(n**0.5) + 1):
+        if primes[x]:
+            for y in range(x**2, n + 1, x):
+                primes[y] = False
+
+    # count the no of pm less than n i nums
+    for n in nums:
+        count = sum(primes[2:n+1])
+        b_wins += count % 2 == 0
+        m_wins += count % 2 == 1
+
+    if m_wins == b_wins:
+        return None
+
+    return 'Maria' if m_wins > b_wins else 'Ben'

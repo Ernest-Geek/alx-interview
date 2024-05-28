@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 def generate_primes(n):
     primes = []
     is_prime = [True] * (n + 1)
